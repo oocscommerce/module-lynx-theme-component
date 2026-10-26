@@ -1,0 +1,32 @@
+enum Width {
+  NARROW @label(text: "Narrow (768px)")
+  DEFAULT @label(text: "Default (1152px)")
+  SITE @label(text: "Site (1440px)")
+}
+
+"Single image, lazy loaded, with optional link, max width, alignment and rounded corners"
+type Image @component(
+  code: "default_image"
+  template: "OOCS_LynxThemeComponent::Components/Image"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Image"
+  label: "Image"
+  group: "media"
+  icon: "ph-image"
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "Upload or select the image file to display"
+  src: Image! @setting(label: "Image URL", default: "")
+  "Descriptive text for the image — used for accessibility and SEO"
+  alt: LocalizedText! @setting(label: "Alt Text", default: "")
+  "Optional URL to navigate to when clicking the image (leave empty for no link)"
+  href: Url! @setting(label: "Link URL", default: "")
+  "Maximum display width of the image in pixels (0 = full width)"
+  width: Int! @setting(label: "Width (px)", default: 0, min: 0, max: 1920, step: 1)
+  "Where it sits in the width it is given; Start and End follow the store's writing direction"
+  justify: Justify! @setting(label: "Justification", default: "start")
+  "Rounding of the image corners; Full makes a square image a circle"
+  rounded: Rounded! @setting(label: "Corners", default: "none")
+  "Opens the link in a new browser tab; off, a store path is followed without a page reload"
+  new_tab: Boolean! @setting(label: "Open in New Tab", default: false)
+}

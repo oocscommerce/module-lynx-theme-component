@@ -1,0 +1,39 @@
+enum Format {
+  CODE_NAME @label(text: "Code - Name")
+  CODE @label(text: "Code")
+  NAME @label(text: "Name")
+  SYMBOL_CODE @label(text: "Symbol Code")
+}
+
+"Dropdown to switch the display currency among those the store allows; hidden when there is only one"
+type CurrencySwitcher @component(
+  code: "default_currency_switcher"
+  template: "OOCS_LynxThemeComponent::Components/CurrencySwitcher"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\CurrencySwitcher"
+  label: "Currency Switcher"
+  group: "header_footer"
+  icon: "ph-currency-circle-dollar"
+) {
+  "Heading above the control; empty uses the store's default label (Currency)"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "Hide the heading when the switcher sits in a bar with no room for one"
+  show_title: Boolean! @setting(label: "Show Title", default: true)
+  "Text size of the title and the options; the title stays a step above them"
+  size: TextSize! @setting(label: "Size", default: "base")
+  "Dropdown: a select-like box that opens the list. Links: the options in a row separated by |, the current one in bold"
+  display: Display2! @setting(label: "Style", default: "dropdown")
+  "How each currency is written: USD - US Dollar, USD, US Dollar, or $ USD"
+  format: Format! @setting(label: "Format", default: "code_name")
+  "Code, display name and symbol; how they are written is the `format` setting's call"
+  options: [Currency!]! @optional
+  switch_url: String! @optional
+  "Customer-data sections the switch invalidates, resolved from sections.xml."
+  sections: [String!]! @optional
+  labels: StringMap! @optional
+}
+
+type Currency {
+  code: String!
+  name: String!
+  symbol: String!
+}

@@ -1,0 +1,13 @@
+"A horizontal line between two blocks, with room above and below"
+type Divider @component(
+  code: "default_divider"
+  template: "OOCS_LynxThemeComponent::Components/Divider"
+  label: "Divider"
+  group: "layout"
+  icon: "ph-minus"
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "Room above and below the line"
+  spacing: ExpressGap! @setting(label: "Spacing", default: "md")
+}

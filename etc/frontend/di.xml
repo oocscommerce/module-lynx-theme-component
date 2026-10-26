@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- The minicart formats the subtotal on the client, so it needs the numbers rather than core's markup -->
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="oocs_lynxthemecomponent_cart_subtotal_tax" type="OOCS\LynxThemeComponent\Plugin\CartSubtotalTax" sortOrder="10"/>
+    </type>
+</config>

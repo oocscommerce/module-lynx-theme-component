@@ -1,0 +1,29 @@
+enum Variant {
+  PRIMARY @label(text: "Primary")
+  SECONDARY @label(text: "Secondary")
+  OUTLINE @label(text: "Outline")
+  LIGHT @label(text: "Light")
+}
+
+"Call-to-action button with label, link, style variant, size and alignment"
+type Button @component(
+  code: "default_button"
+  template: "OOCS_LynxThemeComponent::Components/Button"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Button"
+  label: "Button"
+  group: "text"
+  icon: "ph-cursor-click"
+) {
+  "Text displayed inside the button"
+  label: LocalizedText! @setting(label: "Label", default: "Button")
+  "URL or path the button navigates to when clicked"
+  href: Url! @setting(label: "URL", default: "#")
+  "Visual style of the button — Primary (filled), Secondary (muted), Outline (bordered), or Light (filled with the page background, for dark or bold backgrounds)"
+  variant: Variant! @setting(label: "Variant", default: "primary")
+  "Padding and text size of the button"
+  size: Size! @setting(label: "Size", default: "md")
+  "Where it sits in the width it is given; Start and End follow the store's writing direction"
+  justify: Justify! @setting(label: "Justification", default: "start")
+  "Opens the link in a new browser tab; off, a store path is followed without a page reload"
+  new_tab: Boolean! @setting(label: "Open in New Tab", default: false)
+}

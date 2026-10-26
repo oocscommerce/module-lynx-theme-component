@@ -1,0 +1,12 @@
+"One cell of a Row that can span several of its columns — a 3-column Row with a Column of span 1 and one of span 2 is a 1/3 + 2/3 layout. Applies on desktop; below that each Column takes one track"
+type Column @component(
+  code: "default_column"
+  template: "OOCS_LynxThemeComponent::Components/Column"
+  label: "Column"
+  group: "layout"
+  icon: "ph-rectangle"
+) {
+  "How many of the Row's desktop columns this cell covers (1–6)"
+  span: Int! @setting(label: "Span", default: 1, min: 1, max: 6, step: 1)
+  default: Slot @slot(label: "Content")
+}

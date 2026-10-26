@@ -1,0 +1,31 @@
+"Email signup posting to the store's newsletter subscription; the outcome comes back as a flash message"
+type NewsletterForm @component(
+  code: "default_newsletter_form"
+  template: "OOCS_LynxThemeComponent::Components/NewsletterForm"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\NewsletterForm"
+  label: "Newsletter Form"
+  group: "form"
+  icon: "ph-envelope-simple"
+) {
+  "Heading above the form"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "One line under the title saying what the subscriber gets"
+  note: LocalizedTextarea! @setting(label: "Note", default: "")
+  "Text size of the title and the note"
+  size: TextSize! @setting(label: "Size", default: "base")
+  "Placeholder text inside the email field"
+  placeholder: LocalizedText! @setting(label: "Placeholder", default: "")
+  urls: NewsletterFormUrls! @optional
+  "Customer-data sections the endpoint invalidates, resolved from sections.xml."
+  sections: NewsletterFormSections! @optional
+  "Every string the form shows that is not admin content, translated by the provider."
+  labels: StringMap! @optional
+}
+
+type NewsletterFormUrls {
+  subscribe: String! @optional
+}
+
+type NewsletterFormSections {
+  subscribe: [String!]! @optional
+}

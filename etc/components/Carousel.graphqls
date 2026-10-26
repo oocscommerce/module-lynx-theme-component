@@ -1,0 +1,57 @@
+enum ContentY {
+  TOP @label(text: "Top")
+  MIDDLE @label(text: "Middle")
+  BOTTOM @label(text: "Bottom")
+}
+
+enum Layout3 {
+  OVERLAY @label(text: "Overlay")
+  SPLIT @label(text: "Split")
+}
+
+input CarouselSlidesItem {
+  "Full-width background image of the slide"
+  image: Image! @setting(label: "Image")
+  "Heading over the image"
+  title: LocalizedText! @setting(label: "Title")
+  "Line of text under the heading"
+  subtitle: LocalizedTextarea! @setting(label: "Subtitle")
+  "Text of the button; the button shows only when both label and URL are set"
+  cta_label: LocalizedText! @setting(label: "Button Label")
+  "Where the button goes"
+  cta_url: Url! @setting(label: "Button URL")
+}
+
+"Image slider: slides with a title, a line of text and a button each, the text over the image or beside it, one at a time or several side by side, with autoplay, arrows and dot navigation"
+type Carousel @component(
+  code: "default_carousel"
+  template: "OOCS_LynxThemeComponent::Components/Carousel"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Carousel"
+  label: "Carousel"
+  group: "media"
+  icon: "ph-slideshow"
+  zones: ["content"]
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "The slides, in order. Each has an image and, optionally, a title, a line of text and a button"
+  slides: [CarouselSlidesItem!]! @setting(label: "Slides", default: {}, labelField: "title")
+  "Overlay: the text over the image. Split: the image on one half and the text on the other, stacked on phones"
+  layout: Layout3! @setting(label: "Layout", default: "overlay")
+  "Slides side by side on desktop screens, at most two on tablets and one on phones. Above one, each slide is an upright tile"
+  per_view: Int! @setting(label: "Slides per View", default: 1, min: 1, max: 4, step: 1, dependsOn: {layout: "overlay"})
+  "Where the text sits across the slide. With Split, the side the text takes; the image takes the other"
+  content_x: Justify! @setting(label: "Text Position", default: "center")
+  "Where the text sits from top to bottom of the slide"
+  content_y: ContentY! @setting(label: "Text Vertical Position", default: "middle")
+  "Automatically advance slides on a timed interval"
+  autoplay: Boolean! @setting(label: "Autoplay", default: true)
+  "Time in milliseconds between automatic slide changes"
+  interval: Int! @setting(label: "Interval (ms)", default: 4000, min: 1000, max: 10000, step: 500, dependsOn: {autoplay: "true"})
+  "Display previous/next navigation arrows on the sides of the slider"
+  show_arrows: Boolean! @setting(label: "Show Arrows", default: true)
+  "Show clickable dot indicators below the slider to jump to a specific slide"
+  show_dots: Boolean! @setting(label: "Show Dots", default: true)
+  "The names the three controls announce; they carry an icon and no text of their own"
+  labels: StringMap! @optional
+}

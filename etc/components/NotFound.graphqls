@@ -1,0 +1,10 @@
+"The large \"404\" mark of the not-found page; its title, message and button are their own blocks"
+type NotFound @component(
+  code: "default_not_found"
+  template: "OOCS_LynxThemeComponent::Components/NotFound"
+  label: "Not Found (404)"
+  icon: "ph-warning"
+  zones: ["content"]
+  availableOn: ["cms_noroute_index"]
+)
+# No settings or data. The file must not end on ")": Magento's GraphQL code sniffer aborts on it

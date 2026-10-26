@@ -1,0 +1,11 @@
+"Invisible spacer block for adding vertical whitespace between sections — configurable height in pixels"
+type Spacer @component(
+  code: "default_spacer"
+  template: "OOCS_LynxThemeComponent::Components/Spacer"
+  label: "Spacer"
+  group: "layout"
+  icon: "ph-arrows-out-line-vertical"
+) {
+  "Height of the blank spacer in pixels"
+  height: Int! @setting(label: "Height (px)", default: 40, min: 4, max: 400, step: 4)
+}

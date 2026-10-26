@@ -1,0 +1,30 @@
+enum ItemsNetwork {
+  INSTAGRAM @label(text: "Instagram")
+  FACEBOOK @label(text: "Facebook")
+  X @label(text: "X")
+  YOUTUBE @label(text: "YouTube")
+  PINTEREST @label(text: "Pinterest")
+  TIKTOK @label(text: "TikTok")
+}
+
+input SocialLinksItemsItem {
+  network: ItemsNetwork! @setting(label: "Network")
+  url: Url! @setting(label: "Profile URL")
+}
+
+"A row of social network icons, each linking to the store's profile; the icon follows the network picked"
+type SocialLinks @component(
+  code: "default_social_links"
+  template: "OOCS_LynxThemeComponent::Components/SocialLinks"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\SocialLinks"
+  label: "Social Links"
+  group: "header_footer"
+  icon: "ph-share-network"
+) {
+  "Heading above the icons; empty for none"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "Text size of the title"
+  size: TextSize! @setting(label: "Size", default: "base")
+  "The profiles to link, in order"
+  items: [SocialLinksItemsItem!]! @setting(label: "Networks", default: {}, labelField: "network")
+}

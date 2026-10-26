@@ -1,0 +1,29 @@
+enum VerticalAlign {
+  STRETCH @label(text: "Stretch")
+  START @label(text: "Top")
+  CENTER @label(text: "Center")
+  END @label(text: "Bottom")
+}
+
+"Equal columns side by side — drag blocks into its slot; set the count per screen size, or put a Column in each track for unequal widths"
+type Row @component(
+  code: "default_row"
+  template: "OOCS_LynxThemeComponent::Components/Row"
+  label: "Row"
+  group: "layout"
+  icon: "ph-columns"
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "Number of equal-width columns from 1024px up (1–6)"
+  columns: Int! @setting(label: "Columns (desktop)", default: 2, min: 1, max: 6, step: 1)
+  "Columns between 768px and 1024px (1–4). Empty: the desktop count, capped at 3"
+  columns_tablet: Int! @setting(label: "Columns (tablet)", default: 0, min: 1, max: 4, step: 1)
+  "Columns below 768px (1–3). Empty: 1, everything stacks"
+  columns_mobile: Int! @setting(label: "Columns (mobile)", default: 0, min: 1, max: 3, step: 1)
+  "How blocks of different heights line up within a row of columns"
+  vertical_align: VerticalAlign! @setting(label: "Vertical Alignment", default: "stretch")
+  "Spacing between columns in pixels"
+  gap: Int! @setting(label: "Gap (px)", default: 16, min: 0, max: 80, step: 4)
+  default: Slot @slot(label: "Columns")
+}

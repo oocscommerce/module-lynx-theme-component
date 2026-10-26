@@ -1,0 +1,28 @@
+"The cart icon of the header with its count, and the drawer listing the cart"
+type MiniCart @component(
+  code: "default_mini_cart"
+  template: "OOCS_LynxThemeComponent::Components/MiniCart"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\MiniCart"
+  label: "Mini Cart"
+  group: "header_action"
+  icon: "ph-shopping-bag"
+  zones: ["header"]
+) {
+  checkout_urls: CheckoutUrls! @optional
+  "Customer-data sections each endpoint invalidates, resolved from sections.xml."
+  sections: MiniCartSections! @optional
+  "Every string the mini cart shows, translated by the provider (Provider\\MiniCart)."
+  labels: StringMap! @optional
+  "Display Subtotal of the cart display settings: 1 excluding tax, 2 including, 3 both"
+  subtotal_tax_display: Float! @optional
+}
+
+type CheckoutUrls {
+  checkout: String!
+  cart: String!
+  remove_item: String!
+}
+
+type MiniCartSections {
+  remove_item: [String!]! @optional
+}

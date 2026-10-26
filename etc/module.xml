@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="OOCS_LynxThemeComponent">
+        <sequence>
+            <module name="OOCS_LynxComponent"/>
+            <!-- The editor these components appear in; PageBuilder names them only as strings in its data patch. -->
+            <module name="OOCS_LynxPageBuilder"/>
+            <!-- Model\Product\SalableStatus and ConfigurableSwatches, which the product providers read. -->
+            <module name="OOCS_LynxCatalog"/>
+        </sequence>
+    </module>
+</config>

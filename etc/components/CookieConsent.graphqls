@@ -1,0 +1,42 @@
+enum Justify2 {
+  LEFT @label(text: "Left")
+  CENTER @label(text: "Center")
+  RIGHT @label(text: "Right")
+}
+
+enum Display4 {
+  BAR @label(text: "Bar")
+  CARD @label(text: "Card")
+}
+
+"GDPR cookie consent banner with accept/decline buttons, policy link, and bar or card display style"
+type CookieConsent @component(
+  code: "default_cookie_consent"
+  template: "OOCS_LynxThemeComponent::Components/CookieConsent"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\CookieConsent"
+  label: "Cookie Consent"
+  group: "utility"
+  icon: "ph-cookie"
+  zones: ["footer"]
+) {
+  "Consent notice text explaining what cookies are used for"
+  message: LocalizedTextarea! @setting(label: "Message", default: "We use cookies to improve your experience on our site. By continuing to browse, you agree to our use of cookies.")
+  "URL to the full cookie or privacy policy page"
+  policy_url: Url! @setting(label: "Cookie Policy URL", default: "/privacy-policy-cookie-restriction-mode")
+  "Clickable link text that opens the policy URL (e.g. Learn more)"
+  policy_label: LocalizedText! @setting(label: "Cookie Policy Label", default: "Cookie Policy")
+  "Text on the button that accepts all cookies (e.g. Accept all)"
+  accept_label: LocalizedText! @setting(label: "Accept Button Label", default: "Accept All")
+  "Text on the button that declines non-essential cookies (e.g. Decline)"
+  decline_label: LocalizedText! @setting(label: "Decline Button Label", default: "Decline")
+  "Display format — Bar: full-width strip at edge of screen; Card: compact floating card"
+  display: Display4! @setting(label: "Style", default: "bar")
+  "Where the banner appears on the screen — Bottom or Top"
+  position: Position! @setting(label: "Position", default: "bottom")
+  "Horizontal placement of the card"
+  justify: Justify2! @setting(label: "Card Alignment", default: "center", dependsOn: {display: "card"})
+  "How long the accepted choice (cookie cookie_consent) is kept before the notice shows again; 0 = until the browser closes"
+  lifetime: Int! @setting(label: "Remember Choice (days)", default: 365, min: 0, max: 365, step: 1)
+  "Every string the notice shows, translated by the provider (Provider\\Page\\CookieConsent)."
+  labels: StringMap! @optional
+}

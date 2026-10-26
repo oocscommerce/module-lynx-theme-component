@@ -1,0 +1,105 @@
+enum Position {
+  BOTTOM @label(text: "Bottom")
+  TOP @label(text: "Top")
+}
+
+enum Tag {
+  DIV @label(text: "div")
+  SECTION @label(text: "section")
+  HEADER @label(text: "header")
+  FOOTER @label(text: "footer")
+  ASIDE @label(text: "aside")
+  NAV @label(text: "nav")
+}
+
+enum Border {
+  NONE @label(text: "None")
+  TOP @label(text: "Top")
+  BOTTOM @label(text: "Bottom")
+  BOTH @label(text: "Top and bottom")
+  ALL @label(text: "All sides")
+}
+
+enum BackgroundPosition {
+  CENTER @label(text: "Center")
+  TOP @label(text: "Top")
+  BOTTOM @label(text: "Bottom")
+}
+
+enum BackgroundSize {
+  COVER @label(text: "Cover")
+  CONTAIN @label(text: "Contain")
+  AUTO @label(text: "Original size")
+}
+
+enum Gradient {
+  NONE @label(text: "None")
+  SOFT @label(text: "Soft")
+  BOLD @label(text: "Bold")
+}
+
+enum ContentPosition {
+  TOP @label(text: "Top")
+  CENTER @label(text: "Center")
+  BOTTOM @label(text: "Bottom")
+}
+
+enum PaddingX {
+  DEFAULT @label(text: "Default")
+  NONE @label(text: "None")
+}
+
+enum Layout2 {
+  CONSTRAINED @label(text: "Constrained")
+  FULL @label(text: "Full width")
+}
+
+"The wrapper block: a band whose background, border and vertical padding run edge to edge, with the blocks inside centred at a set width or laid out full width. Nest one in another for a boxed band; put a Row in it for columns"
+type Group @component(
+  code: "default_group"
+  template: "OOCS_LynxThemeComponent::Components/Group"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Group"
+  label: "Group"
+  group: "layout"
+  icon: "ph-selection"
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "Constrained centres the blocks inside in a frame of the width below with the site's side padding; Full lets them run the whole width of the band"
+  layout: Layout2! @setting(label: "Layout", default: "constrained")
+  "Width of the frame"
+  width: Width! @setting(label: "Content Width", dependsOn: {layout: "constrained"}) @optional
+  "Room above and below the blocks — Small for dense pages (cart, account), Medium for forms, Large for short notice pages"
+  padding_y: ExpressGap! @setting(label: "Vertical Padding", default: "md")
+  "The side gutters inside the frame. None when this Group sits inside a frame that already has them — the page itself, or another Group; Default when it is aligned Full and runs edge to edge"
+  padding_x: PaddingX! @setting(label: "Side Padding") @optional
+  "Room between the blocks inside, top to bottom"
+  gap: ExpressGap! @setting(label: "Block Spacing", default: "none")
+  "Makes the band at least this tall — for a hero with a background image. 0: as tall as its content"
+  min_height: Int! @setting(label: "Minimum Height (px)", default: 0, min: 0, max: 1200, step: 10)
+  "Where the blocks sit when the band is taller than they are"
+  content_position: ContentPosition! @setting(label: "Content Position", default: "top")
+  "Text color the blocks inside inherit — for light text on a dark background. Empty: default"
+  color: Color! @setting(label: "Text Color", default: "")
+  "Fills the whole band, edge to edge. Empty: transparent"
+  background: Color! @setting(label: "Background Color", default: "")
+  "A blend of the theme's primary and secondary colors, in place of the background color. Bold: set a light text color too"
+  gradient: Gradient! @setting(label: "Background Gradient", default: "none")
+  "Shown over the background color, edge to edge"
+  background_image: Image! @setting(label: "Background Image", default: "")
+  "How the image fills the band"
+  background_size: BackgroundSize! @setting(label: "Background Size", default: "cover")
+  "Which part of the image stays in view when it is cropped"
+  background_position: BackgroundPosition! @setting(label: "Background Position", default: "center")
+  "Darkens the background image so text stays readable. 0: none"
+  overlay: Int! @setting(label: "Overlay (%)", default: 0, min: 0, max: 90, step: 5)
+  "A hairline on the edges of the band, running its full width"
+  border: Border! @setting(label: "Border", default: "none")
+  "Rounded corners — for a Group used as a card inside another"
+  rounded: Rounded2! @setting(label: "Corners", default: "none")
+  "The tag rendered, for semantics and assistive technology: section for a titled part of the page, header/footer/aside/nav for those landmarks"
+  tag: Tag! @setting(label: "HTML Element", default: "div")
+  "An id for in-page links (#anchor). Letters, digits and dashes"
+  anchor: String! @setting(label: "HTML Anchor", default: "")
+  default: Slot @slot(label: "Content")
+}

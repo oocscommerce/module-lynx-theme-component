@@ -1,0 +1,27 @@
+enum Level {
+  H1 @label(text: "H1")
+  H2 @label(text: "H2")
+  H3 @label(text: "H3")
+  H4 @label(text: "H4")
+  H5 @label(text: "H5")
+  H6 @label(text: "H6")
+}
+
+"Title/heading text block with configurable level (H1–H6) and text alignment"
+type Heading @component(
+  code: "default_heading"
+  template: "OOCS_LynxThemeComponent::Components/Heading"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Heading"
+  label: "Heading"
+  group: "text"
+  icon: "ph-text-h"
+) {
+  "The heading text content displayed on the page"
+  text: LocalizedText! @setting(label: "Text", default: "")
+  "HTML heading level — H1 for the main page title, H2–H3 for sections, H4–H6 for sub-sections"
+  level: Level! @setting(label: "Level", default: "h2")
+  "Horizontal alignment of the heading text; Start and End follow the store's writing direction"
+  text_align: TextAlign! @setting(label: "Text Alignment", default: "left")
+  "Overrides the default dark text, for use on a Group with a dark background. Empty: default"
+  color: Color! @setting(label: "Text Color", default: "")
+}

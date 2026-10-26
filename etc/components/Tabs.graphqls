@@ -1,0 +1,19 @@
+enum Orientation {
+  HORIZONTAL @label(text: "Horizontal")
+  VERTICAL @label(text: "Vertical")
+}
+
+"Shows one of several panels at a time — drop a Tab into its slot for each panel, then put any blocks inside the Tab. A Tab with nothing in it is not shown"
+type Tabs @component(
+  code: "default_tabs"
+  template: "OOCS_LynxThemeComponent::Components/Tabs"
+  label: "Tabs"
+  group: "layout"
+  icon: "ph-tabs"
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "Horizontal: the tab strip above the panel. Vertical: the tabs in a column beside it from 1024px up, above it below that"
+  orientation: Orientation! @setting(label: "Orientation", default: "horizontal")
+  default: Slot @slot(label: "Tabs", allow: ["tab"])
+}

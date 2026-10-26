@@ -1,0 +1,32 @@
+input AnnouncementBarItemsItem {
+  "Announcement text displayed in the bar"
+  text: LocalizedText! @setting(label: "Message")
+  "Clickable link text shown after the message (leave empty to hide)"
+  link_label: LocalizedText! @setting(label: "Link Label")
+  "URL the link navigates to when clicked"
+  link_url: Url! @setting(label: "Link URL")
+}
+
+"Rotating announcement bar at the top with configurable messages, links, and optional dismiss button"
+type AnnouncementBar @component(
+  code: "default_announcement_bar"
+  template: "OOCS_LynxThemeComponent::Components/AnnouncementBar"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\AnnouncementBar"
+  label: "Announcement Bar"
+  group: "header_footer"
+  icon: "ph-megaphone"
+  zones: ["header"]
+) {
+  "List of announcement messages — each can have text and an optional call-to-action link"
+  items: [AnnouncementBarItemsItem!]! @setting(label: "Messages", default: {}, labelField: "text")
+  "How many seconds each message is shown before rotating to the next"
+  speed: Int! @setting(label: "Slide Interval (seconds)", default: 4, min: 1, max: 30, step: 1)
+  "Empty uses the design's neutral color"
+  background: Color! @setting(label: "Background", default: "")
+  "Also colors the arrows and the close button. Empty uses the text color that goes with the neutral background"
+  text_color: Color! @setting(label: "Text Color", default: "")
+  "Allow users to close/dismiss the bar — preference is remembered in their browser"
+  dismissible: Boolean! @setting(label: "Dismissible", default: true)
+  "Names of the icon-only buttons (Provider\\Page\\AnnouncementBar)"
+  labels: StringMap! @optional
+}

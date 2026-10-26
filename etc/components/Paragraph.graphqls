@@ -1,0 +1,30 @@
+enum TextSize {
+  SM @label(text: "Small")
+  BASE @label(text: "Normal")
+  LG @label(text: "Large")
+}
+
+enum Size {
+  SM @label(text: "Small")
+  MD @label(text: "Medium")
+  LG @label(text: "Large")
+}
+
+"Body copy with bold, links and lists — use for descriptions and any running text"
+type Paragraph @component(
+  code: "default_paragraph"
+  template: "OOCS_LynxThemeComponent::Components/Paragraph"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Paragraph"
+  label: "Paragraph"
+  group: "text"
+  icon: "ph-text-align-left"
+) {
+  "The text shown on the page; paragraphs, bold, links and lists are kept"
+  content: LocalizedRichText! @setting(label: "Content", default: "")
+  "Horizontal alignment of the text; Start and End follow the store's writing direction"
+  text_align: TextAlign! @setting(label: "Text Alignment", default: "left")
+  "Text size — Small for notes and legal lines, Large for lead paragraphs"
+  size: TextSize! @setting(label: "Size", default: "base")
+  "Overrides the default dark text, for use on a Group with a dark background. Empty: default"
+  color: Color! @setting(label: "Text Color", default: "")
+}

@@ -1,0 +1,24 @@
+enum Color2 {
+  DARK @label(text: "Dark")
+  LIGHT @label(text: "Light")
+}
+
+"Floating scroll-to-top button that appears after the user scrolls down — configurable position, color, and size"
+type BackToTop @component(
+  code: "default_back_to_top"
+  template: "OOCS_LynxThemeComponent::Components/BackToTop"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\BackToTop"
+  label: "Back To Top"
+  group: "utility"
+  icon: "ph-arrow-line-up"
+  zones: ["footer"]
+) {
+  "Horizontal position of the floating button on the screen"
+  position: SidebarPosition! @setting(label: "Position", default: "right")
+  "Color scheme of the button — Dark (black/gray) or Light (white)"
+  color: Color2! @setting(label: "Color", default: "dark")
+  "Size of the floating button — Small, Medium, or Large"
+  size: Size! @setting(label: "Size", default: "md")
+  "Every string the button shows, translated by the provider (Provider\\Page\\BackToTop)."
+  labels: StringMap! @optional
+}

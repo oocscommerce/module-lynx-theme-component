@@ -1,0 +1,19 @@
+"Contact form with name, email, optional phone number, and a message field; the title and intro are their own blocks"
+type ContactForm @component(
+  code: "default_contact_form"
+  template: "OOCS_LynxThemeComponent::Components/ContactForm"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\ContactForm"
+  label: "Contact Form"
+  group: "form"
+  icon: "ph-chat-circle-text"
+  zones: ["content"]
+  availableOn: ["contact_index_index"]
+) {
+  urls: ContactUrls! @optional
+  "Every string the form shows, translated by the provider (Provider\\Page\\ContactForm)."
+  labels: StringMap! @optional
+}
+
+type ContactUrls {
+  post: String! @optional
+}

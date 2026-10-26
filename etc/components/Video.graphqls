@@ -1,0 +1,41 @@
+enum Aspect {
+  V_16_9 @label(text: "16:9") @value(text: "16_9")
+  V_4_3 @label(text: "4:3") @value(text: "4_3")
+  V_1_1 @label(text: "1:1") @value(text: "1_1")
+  V_9_16 @label(text: "9:16") @value(text: "9_16")
+}
+
+enum Rounded2 {
+  NONE @label(text: "Square")
+  MD @label(text: "Rounded")
+  LG @label(text: "More rounded")
+}
+
+"A YouTube or Vimeo video that shows a poster first and loads the player only when the visitor presses play"
+type Video @component(
+  code: "default_video"
+  template: "OOCS_LynxThemeComponent::Components/Video"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Video"
+  label: "Video"
+  group: "media"
+  icon: "ph-video"
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "The address of a YouTube video (including Shorts) or a Vimeo video, as copied from the browser or the Share button"
+  url: String! @setting(label: "Video URL", default: "")
+  "What the video is about, read out by screen readers on the play button and the player"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "Shown until the video plays. Empty: the video's own thumbnail for YouTube, a plain play button for Vimeo"
+  poster: Image! @setting(label: "Poster Image", default: "")
+  "The shape of the frame; 9:16 suits Shorts and other vertical videos"
+  aspect: Aspect! @setting(label: "Aspect Ratio", default: "16_9")
+  "Maximum width of the video in pixels; its height follows the aspect ratio (0 = full width)"
+  width: Int! @setting(label: "Width (px)", default: 0, min: 0, max: 1920, step: 1)
+  "Where it sits in the width it is given; Start and End follow the store's writing direction"
+  justify: Justify! @setting(label: "Justification", default: "center")
+  "Rounding of the video corners"
+  rounded: Rounded2! @setting(label: "Corners", default: "none")
+  embed: String!
+  labels: StringMap! @optional
+}

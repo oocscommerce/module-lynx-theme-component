@@ -1,0 +1,16 @@
+"The account icon of the header with its sign in or account panel, and the wish list and compare links (desktop)"
+type HeaderAccount @component(
+  code: "default_header_account"
+  template: "OOCS_LynxThemeComponent::Components/HeaderAccount"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\HeaderAccount"
+  label: "Header Account"
+  group: "header_action"
+  icon: "ph-user"
+  zones: ["header"]
+) {
+  "Show the Compare Products icon with its count while the comparison list has products"
+  show_compare: Boolean! @setting(label: "Show Compare", default: true)
+  customer_urls: CustomerUrls! @optional
+  "Every string the account block shows, translated by the provider (Provider\\HeaderAccount)."
+  labels: StringMap! @optional
+}

@@ -1,0 +1,25 @@
+"Full-width hero banner with background image, title, subtitle text, and a call-to-action button"
+type Banner @component(
+  code: "default_banner"
+  template: "OOCS_LynxThemeComponent::Components/Banner"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\Banner"
+  label: "Banner"
+  group: "media"
+  icon: "ph-subtitles"
+  zones: ["content"]
+) {
+  "How far this block reaches inside a constrained Group: None keeps the content width like the blocks around it, Wide reaches the site width, Full runs edge to edge. No effect outside a Group"
+  align: Align! @setting(label: "Align", default: "none") @optional
+  "Upload or select the background image for the hero section"
+  image: Image! @setting(label: "Background Image", default: "")
+  "Main headline text displayed over the banner image"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "Supporting text or tagline shown below the title"
+  subtitle: LocalizedTextarea! @setting(label: "Subtitle", default: "")
+  "Text on the call-to-action button (leave empty to hide the button)"
+  cta_label: LocalizedText! @setting(label: "Button Label", default: "")
+  "URL the call-to-action button navigates to when clicked"
+  cta_url: Url! @setting(label: "Button URL", default: "#")
+  "Minimum height of the banner section in pixels — content will expand beyond this if needed"
+  min_height: Int! @setting(label: "Min Height (px)", default: 400, min: 100, max: 900, step: 10)
+}

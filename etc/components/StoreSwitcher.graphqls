@@ -1,0 +1,34 @@
+enum Display2 {
+  DROPDOWN @label(text: "Dropdown")
+  LINKS @label(text: "Links")
+}
+
+"Dropdown to switch between the store views of the current store; hidden when there is only one"
+type StoreSwitcher @component(
+  code: "default_store_switcher"
+  template: "OOCS_LynxThemeComponent::Components/StoreSwitcher"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\StoreSwitcher"
+  label: "Store Switcher"
+  group: "header_footer"
+  icon: "ph-globe"
+) {
+  "Heading above the control; empty uses the store's default label (Select Store)"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "Hide the heading when the switcher sits in a bar with no room for one"
+  show_title: Boolean! @setting(label: "Show Title", default: true)
+  "Text size of the title and the options; the title stays a step above them"
+  size: TextSize! @setting(label: "Size", default: "base")
+  "Dropdown: a select-like box that opens the list. Links: the options in a row separated by |, the current one in bold"
+  display: Display2! @setting(label: "Style", default: "dropdown")
+  "Empty when the store has nothing to switch to, which is what hides the control"
+  options: [StoreSwitcherOptions!]! @optional
+  redirect_url: String! @optional
+  "Customer-data sections the switch invalidates, resolved from sections.xml."
+  sections: [String!]! @optional
+  labels: StringMap! @optional
+}
+
+type StoreSwitcherOptions {
+  code: String!
+  name: String!
+}

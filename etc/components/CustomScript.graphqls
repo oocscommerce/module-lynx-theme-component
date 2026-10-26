@@ -1,0 +1,27 @@
+enum Load2 {
+  INTERACTION @label(text: "After first interaction")
+  DELAY @label(text: "After a delay")
+  IDLE @label(text: "After page load")
+  IMMEDIATE @label(text: "Immediately")
+}
+
+"A third-party snippet, such as a chat widget or a tracking pixel, run after the page has loaded so it does not slow the first view"
+type CustomScript @component(
+  code: "default_custom_script"
+  template: "OOCS_LynxThemeComponent::Components/CustomScript"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\CustomScript"
+  label: "Custom Script"
+  group: "utility"
+  icon: "ph-code"
+  zones: ["footer", "backstage"]
+) {
+  "The snippet as the provider gives it: script tags with a src, inline script tags, or both. They run in order"
+  code: Textarea! @setting(label: "Code", default: "")
+  "When the snippet runs. After first interaction keeps it out of the page load entirely; Immediately runs it as soon as the page starts"
+  load: Load2! @setting(label: "Load", default: "interaction")
+  "For After a delay, how long to wait; for After first interaction, when to run anyway for a visitor who never interacts (0 = never)"
+  delay: Int! @setting(label: "Delay (seconds)", default: 10, min: 0, max: 60, step: 1)
+  "One cookie name per line; the snippet runs only once every one of them is set, such as the cookie the Cookie Consent component sets on accept. Empty: no check"
+  consent_cookies: Textarea! @setting(label: "Consent Cookies", default: "")
+  nonce: String! @optional
+}

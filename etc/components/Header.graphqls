@@ -1,0 +1,52 @@
+enum MenuStyle {
+  DROPDOWN @label(text: "Dropdown")
+  MEGA @label(text: "Mega menu")
+}
+
+enum MenuRender {
+  FULL @label(text: "Full (SEO friendly)")
+  LAZY @label(text: "Lazy (render on hover)")
+}
+
+"Main site header with logo and navigation menu; search, account and cart go in its Actions"
+type Header @component(
+  code: "default_header"
+  template: "OOCS_LynxThemeComponent::Components/Header"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Header"
+  label: "Header"
+  group: "header_footer"
+  icon: "ph-app-window"
+  zones: ["header"]
+) {
+  "Full: render all menu levels upfront (best for SEO — every category link is in the DOM). Lazy: render only top-level items and mount submenus on first hover (best PageSpeed for very large catalogs; deep links are not visible to crawlers)"
+  menu_render: MenuRender! @setting(label: "Menu Rendering", default: "full")
+  "How a top category shows its subcategories on desktop. Dropdown: a list, the third level opening beside it. Mega menu: a panel as wide as the site, one column per subcategory with its own subcategories below"
+  menu_style: MenuStyle! @setting(label: "Menu Style", default: "mega")
+  "Keep the header fixed at the top of the screen while the user scrolls down"
+  sticky: Boolean! @setting(label: "Sticky Header", default: false)
+  "The icons at the end of the header bar: search, account, mini cart"
+  actions: Slot @slot(label: "Actions", allow: ["header_action"])
+  "The store's logo, resolved by the provider (Provider\\Header) from the design configuration or the theme's"
+  logo_src: String! @optional
+  logo_alt: String! @optional
+  logo_href: String! @optional
+  categories: [NavCategory!]! @optional
+  "The account links of the menu drawer"
+  customer_urls: CustomerUrls! @optional
+  "Every string the header shows, translated by the provider (Provider\\Header)."
+  labels: StringMap! @optional
+}
+
+type NavCategory {
+  label: String!
+  url: String!
+  children: [NavCategory!]!
+}
+
+type CustomerUrls {
+  login: String! @optional
+  create: String! @optional
+  account: String! @optional
+  logout: String! @optional
+  wishlist: String! @optional
+}

@@ -1,0 +1,13 @@
+"One panel of a Tabs block: its title is what the strip shows, its slot holds the blocks the panel reveals"
+type Tab @component(
+  code: "default_tab"
+  template: "OOCS_LynxThemeComponent::Components/Tab"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Tab"
+  label: "Tab"
+  group: "tab"
+  icon: "ph-folder-simple"
+) {
+  "The label on the tab strip"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  default: Slot @slot(label: "Content")
+}

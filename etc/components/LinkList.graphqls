@@ -1,0 +1,21 @@
+input LinkListLinksItem {
+  label: LocalizedText! @setting(label: "Label")
+  url: Url! @setting(label: "URL")
+}
+
+"A titled list of links — a footer column, quick links in a sidebar"
+type LinkList @component(
+  code: "default_link_list"
+  template: "OOCS_LynxThemeComponent::Components/LinkList"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\Page\\LinkList"
+  label: "Link List"
+  group: "text"
+  icon: "ph-list-bullets"
+) {
+  "Heading above the list; empty for none"
+  title: LocalizedText! @setting(label: "Title", default: "")
+  "Text size of the title and the links; the title stays a step above the links"
+  size: TextSize! @setting(label: "Size", default: "base")
+  "The links, in order. A store path (/about) is followed without a page reload"
+  links: [LinkListLinksItem!]! @setting(label: "Links", default: {}, labelField: "label")
+}

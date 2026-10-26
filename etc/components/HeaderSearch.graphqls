@@ -1,0 +1,30 @@
+enum SearchDisplay {
+  OVERLAY @label(text: "Over the Header")
+  BELOW @label(text: "Below the Header")
+}
+
+"The search icon of the header and the box it opens, with product and category suggestions"
+type HeaderSearch @component(
+  code: "default_header_search"
+  template: "OOCS_LynxThemeComponent::Components/HeaderSearch"
+  provider: "OOCS\\LynxThemeComponent\\Provider\\HeaderSearch"
+  label: "Header Search"
+  group: "header_action"
+  icon: "ph-magnifying-glass"
+  zones: ["header"]
+) {
+  "How the search opens from the header icon: a bar over the top of the page, or a panel under the header"
+  search_display: SearchDisplay! @setting(label: "Search Display", default: "below")
+  "Every string the search shows, translated by the provider (Provider\\HeaderSearch)."
+  labels: StringMap! @optional
+  search: SearchConfig! @optional
+}
+
+type SearchConfig {
+  action_url: String!
+  suggest_url: String!
+  min_length: Int!
+  max_length: Float!
+  suggest_enabled: Boolean!
+  placeholder: String!
+}
